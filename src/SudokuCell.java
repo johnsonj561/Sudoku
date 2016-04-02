@@ -111,7 +111,7 @@ public class SudokuCell {
 	 * Mark the given index as an available value
 	 * @param i
 	 */
-	public void setAvailableValues(int i) {
+	public void setAvailableValue(int i) {
 		availableValues[i] = 1;
 	}
 	
@@ -119,7 +119,7 @@ public class SudokuCell {
 	 * Mark the given index as an unavailable value
 	 * @param i
 	 */
-	public void setUnavailableValues(int i){
+	public void setUnavailableValue(int i){
 		availableValues[i] = 0;
 	}
 	

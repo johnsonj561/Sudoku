@@ -1,3 +1,8 @@
+/**
+ * 9 x 9 Sudoku Board grid that is populated randomly with SudokuCell objects
+ * @author Justin J
+ *
+ */
 public class SudokuBoard {
 
 	/**
@@ -7,39 +12,8 @@ public class SudokuBoard {
 		mSudokuBoard = generateSudokuBoard();
 	}
 
-
-	/**
-	 * Print the passed Sudoku board to console for display
-	 * @param SudokuGrid to be printed to console
-	 */
-	public static void printSudokuGrid(SudokuCell SudokuGrid[][]) {
-		for (int i = 0; i < COL_LENGTH; i++) {
-			for (int j = 0; j < ROW_LENGTH; j++) {
-				System.out.print("|\t" + SudokuGrid[i][j].getValue() + "\t");
-			}
-			System.out.println("|\n");
-		}
-	}
-
-	/**
-	 * Generates a comma separated list of Sudoku Grid values
-	 * @param grid Sudoku Grid that is being formated
-	 * @return Comma separated list of Sudoku Grid Values
-	 */
-	public static String generateSudokuBoardCVS(SudokuCell[][] grid){
-		String csv = "";
-		for(int i = 0; i < COL_LENGTH; i++){
-			for(int j = 0; j < ROW_LENGTH; j++){
-				if(i == COL_LENGTH-1 && j == ROW_LENGTH-1){
-					csv += grid[i][j].getValue();
-				}
-				else{
-					csv += grid[i][j].getValue() + ",";
-				}
-
-			}
-		}
-		return csv;
+	public SudokuCell[][] getSudokuBoard(){
+		return mSudokuBoard;
 	}
 
 	/**
@@ -129,9 +103,10 @@ public class SudokuBoard {
 		}
 		return true;
 	}
+	
 
 
 	private static final int ROW_LENGTH = 9;
 	private static final int COL_LENGTH = 9;
-	SudokuCell[][] mSudokuBoard;
+	static SudokuCell[][] mSudokuBoard;
 }
