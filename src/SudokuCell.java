@@ -9,30 +9,59 @@ import java.util.Random;
  */
 public class SudokuCell {
 
+	/**
+	 * Constructor that allows caller to assign initial value of cell
+	 * @param row
+	 * @param col
+	 * @param value
+	 */
 	public SudokuCell(int row, int col, int value){
 		this.row = row;
 		this.col = col;
 		this.value = value;
+		//every cell begins with 9 available values (solutions)
+		//this count is incremented/decremented as values become available/unavailable
+		this.availableValueCount = 9;
 		setQuadrant();
 	}
-	
+	/**
+	 * Constructor that assigns the value of cell to 0
+	 * @param row
+	 * @param col
+	 */
 	public SudokuCell(int row, int col){
 		this.row = row;
 		this.col = col;
 		this.value = 0;	//value is initialized to 0 - 0 will represent cell who is not yet assigned a value
+		this.availableValueCount = 9;
 		setQuadrant();
 	}
 	
-	
+	/**
+	 * Returns the row that cell lives in
+	 * @return the row that cell lives in
+	 */
 	public int getRow() {
 		return row;
 	}
+	/**
+	 * Returns the column that cell lives in
+	 * @return the column that cell lives in
+	 */
 	public int getCol() {
 		return col;
 	}
+	/**
+	 * Returns cell's current value
+	 * @return
+	 */
 	public int getValue() {
 		return value;
 	}
+	/**
+	 * Assigns new value to cell
+	 * @param value
+	 */
 	public void setValue(int value) {
 		this.value = value;
 	}
@@ -61,8 +90,13 @@ public class SudokuCell {
 		}
 		setValue(k+1);			//add 1 because we're working with arrays base 0
 		availableValues[k] = 0;
+		availableValueCount--;
 	}
 	
+	/**
+	 * Get the quadrant that cell lives in
+	 * @return Quadrant that cell lives in
+	 */
 	public int getQuadrant() {
 		return quadrant;
 	}
@@ -103,6 +137,10 @@ public class SudokuCell {
 		}
 	}
 	
+	/**
+	 * Returns array of cell's available values (potential solutions)
+	 * @return
+	 */
 	public int[] getAvailableValues() {
 		return availableValues;
 	}
@@ -112,7 +150,10 @@ public class SudokuCell {
 	 * @param i
 	 */
 	public void setAvailableValue(int i) {
-		availableValues[i] = 1;
+		if(availableValues[i] == 0){
+			availableValueCount++;
+			availableValues[i] = 1;
+		}
 	}
 	
 	/**
@@ -120,7 +161,18 @@ public class SudokuCell {
 	 * @param i
 	 */
 	public void setUnavailableValue(int i){
-		availableValues[i] = 0;
+		if(availableValues[i] == 1){
+			availableValueCount--;
+			availableValues[i] = 0;
+		}
+	}
+	
+	/**
+	 * Returns the total number of available values (solutions) that exist for current cell
+	 * @return
+	 */
+	public int getAvailableValueCount(){
+		return availableValueCount;
 	}
 	
 	/**
@@ -136,6 +188,7 @@ public class SudokuCell {
 		return true;
 	}
 	
+	private int availableValueCount;
 	private int row;
 	private int col;
 	private int value;

@@ -108,5 +108,5 @@ public class SudokuBoard {
 
 	private static final int ROW_LENGTH = 9;
 	private static final int COL_LENGTH = 9;
-	static SudokuCell[][] mSudokuBoard;
+	private SudokuCell[][] mSudokuBoard;
 }

@@ -47,11 +47,10 @@ public class SudokuUtils {
 	}
 
 	/**
-	 * Traverses SudokuBoard cells and updates every cells array of availableValues[][]
-	 * to simplify in solving puzzles and providing user feedback
+	 * Traverses SudokuBoard and updates every cell's array of availableValues[][]
 	 * @param board Sudoku Board to be updated
 	 */
-	public static void updateAvailableValues(SudokuBoard board){
+	public void updateBoardsAvailableValues(SudokuBoard board){
 		SudokuCell[][] mSudokuBoard = board.getSudokuBoard();
 		//first reset all availableValues[i] to 1 (available)
 		for(int i = 0; i < COL_LENGTH; i++){
@@ -98,12 +97,52 @@ public class SudokuUtils {
 		}
 	}
 	
+	
+	/**
+	 * Update the availableValues[] for an individual cell
+	 * @param cell SudokuCell to be updated
+	 */
+	public void updateCellsAvailableValues(SudokuCell[][] board, SudokuCell cell){
+		//first reset all availableValues[i] to 1 (available)
+		for(int i = 0; i < ROW_LENGTH; i++){
+			cell.setAvailableValue(i);
+		}
+		int mRow = cell.getRow();
+		int mCol = cell.getCol();
+		int mQuadrant = cell.getQuadrant();
+		//next traverse all cells and update current cells available values
+		for(int i = 0; i < COL_LENGTH; i++){
+			for(int j = 0; j < ROW_LENGTH; j++){
+				//skip current cell
+				if (i == mRow && j == mCol) {
+					continue;
+				} else {
+					// if in same row, flag unavailableValues
+					if (i == mRow) {
+						cell.setUnavailableValue(board[i][j].getValue() - 1);
+					}
+					// if in same column as cell being validated, check for duplicate values
+					else if (j == mCol) {
+						cell.setUnavailableValue(board[i][j].getValue() - 1);
+					}
+					// if in same quadrant as cell being validated, check for duplicates
+					else if (board[i][j].getQuadrant() == mQuadrant) {
+						cell.setUnavailableValue(board[i][j].getValue() - 1);
+					}
+				}
+			}
+		}
+		System.out.println("Cells availableValueCount is: " + cell.getAvailableValueCount());
+	}
+	
+	
+	
 	/**
 	 * Generates a comma separated list of Sudoku Board values
 	 * @param board Sudoku Board being converted to CSV
 	 * @return CSV - comma separated list of Sudoku Board Values
 	 */
-	public static String generateSudokuBoardCVS(SudokuBoard board){
+	public String generateSudokuBoardCVS(SudokuBoard board){
 		SudokuCell[][] mSudokuBoard = board.getSudokuBoard();
 		String csv = "";
 		for(int i = 0; i < COL_LENGTH; i++){
