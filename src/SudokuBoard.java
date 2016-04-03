@@ -24,7 +24,7 @@ public class SudokuBoard {
 		boolean isValidGrid = false;
 		int attempts = 0;
 		while(!isValidGrid){
-			System.out.println("Attempt #: " + attempts++);
+			//System.out.println("Attempt #: " + attempts++);
 			isValidGrid = true;
 			SudokuCell[][] SudokuGrid = initializeSudokuGrid();
 			for (int i = 0; i < COL_LENGTH && isValidGrid; i++) {

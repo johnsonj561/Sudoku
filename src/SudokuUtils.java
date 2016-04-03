@@ -12,17 +12,34 @@ public class SudokuUtils {
 	 */
 	public void printSudokuBoard(SudokuBoard board) {
 		SudokuCell[][] mSudokuBoard = board.getSudokuBoard();
-		System.out.println("\n\n-------------------------------------------------------------------------");
+		System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		for (int i = 0; i < COL_LENGTH; i++) {
 			for (int j = 0; j < ROW_LENGTH; j++) {
 				if(mSudokuBoard[i][j].getValue() == 0){
-					System.out.print("|       ");
+					if(j%3 == 0){
+						System.out.print("/       ");
+					}
+					else{
+						System.out.print("|       ");
+					}
 				}
 				else{
-					System.out.print("|   " + mSudokuBoard[i][j].getValue() + "   ");
+					if(j%3 == 0){
+						System.out.print("/   " + mSudokuBoard[i][j].getValue() + "   ");
+					}
+					else{
+						System.out.print("|   " + mSudokuBoard[i][j].getValue() + "   ");
+					}
+					
 				}
 			}
-			System.out.println("|\n-------------------------------------------------------------------------");
+			if(i == 2 || i == 5 || i == 8){
+				System.out.println("/\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			}
+			else{
+				System.out.println("/\n-------------------------------------------------------------------------");
+
+			}
 		}
 	}
 	
