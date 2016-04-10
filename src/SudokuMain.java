@@ -23,11 +23,13 @@ public class SudokuMain {
 				//if cell is not already blank and if it has only 1 possible solution - then set it to 0 (blank)
 				if(mBoard[randomRow][randomColumn].getValue() != 0 && mBoard[randomRow][randomColumn].getAvailableValueCount() == 1){
 					mBoard[randomRow][randomColumn].setValue(0);
-					//System.out.println("Removing value from cell " + randomRow + " | " + randomColumn + " with availableValueCount = " + 
-					//		mBoard[randomRow][randomColumn].getAvailableValueCount());
+					System.out.println("Removing value from cell " + randomRow + " | " + randomColumn + " with availableValueCount = " + 
+							mBoard[randomRow][randomColumn].getAvailableValueCount());
 					blanks++;
 				}
 				mUtils.updateBoardsAvailableValues(mSudokuBoard);
+				mUtils.printAvailableValues(mSudokuBoard);
+				mUtils.printSudokuBoard(mSudokuBoard);
 			}		
 			System.out.println("Blanks created: " + blanks);
 			if(blanks > 45){
@@ -46,7 +48,7 @@ public class SudokuMain {
 			}
 		}
 		
-		//mUtils.printAvailableValues(mSudokuBoard);
+		mUtils.printAvailableValues(mSudokuBoard);
 		mUtils.printSudokuBoard(mSudokuBoard);
 		
 

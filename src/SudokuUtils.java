@@ -84,6 +84,9 @@ public class SudokuUtils {
 				int mCol = j;
 				int mQuadrant = mSudokuBoard[i][j].getQuadrant();
 				int mValue = mSudokuBoard[i][j].getValue();
+				int mAvailableValues[] = mSudokuBoard[i][j].getAvailableValues();
+				int mAvailableValueCount = mSudokuBoard[i][j].getAvailableValueCount();
+				
 				//mark the unavailable values in the cells that fall into current row, column, or quadrant
 				if(mValue != 0){
 					for(int m = 0; m < COL_LENGTH; m++){
@@ -97,15 +100,53 @@ public class SudokuUtils {
 								// if in same row as cell being validated, check for duplicate values
 								if (m == mRow) {
 									mSudokuBoard[m][n].setUnavailableValue(mValue - 1);
+									//if a cell in same row has only 1 possible solution, remove this solution from from [i][j]
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										System.out.println(m + " | " + n + " has only 1 available value, removing it from cell " +
+												i + " | " + j + "  list of available Values");
+										System.out.println("Available value being removed is: " + mSudokuBoard[m][n].getAvailableValue());				
+										mSudokuBoard[i][j].setUnavailableValue(mSudokuBoard[m][n].getAvailableValue()-1);
+									}
 								}
 								// if in same column as cell being validated, check for duplicate values
-								else if (n == mCol) {
+								if (n == mCol) {
 									mSudokuBoard[m][n].setUnavailableValue(mValue - 1);
+									//if a cell in same row has only 1 possible solution, remove this solution from from [i][j]
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										//System.out.println("Cell has a singly available value, removing it from cell's list of available Values");
+										mSudokuBoard[i][j].setUnavailableValue(mSudokuBoard[m][n].getAvailableValue()-1);
+									}
 								}
 								// if in same quadrant as cell being validated, check for duplicates
-								else if (mSudokuBoard[m][n].getQuadrant() == mQuadrant) {
+								if (mSudokuBoard[m][n].getQuadrant() == mQuadrant) {
 									mSudokuBoard[m][n].setUnavailableValue(mValue - 1);
+									//if a cell in same row has only 1 possible solution, remove this solution from from [i][j]
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										//System.out.println("Quadrant has a singly available value, removing it from cell's list of available Values");
+										mSudokuBoard[i][j].setUnavailableValue(mSudokuBoard[m][n].getAvailableValue()-1);
+									}
 								}
+								if (m == mRow) {
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										System.out.println(m + " | " + n + " has only 1 available value, removing it from cell " +
+												i + " | " + j + "  list of available Values");
+										int removedValue = mSudokuBoard[m][n].getAvailableValue();
+										System.out.println("Available value being removed is: " + removedValue);				
+										mSudokuBoard[i][j].setUnavailableValue(removedValue);
+									}
+								}
+								if (n == mCol) {
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										//System.out.println("Cell has a singly available value, removing it from cell's list of available Values");
+										mSudokuBoard[i][j].setUnavailableValue(mSudokuBoard[m][n].getAvailableValue()-1);
+									}
+								}
+								if (mSudokuBoard[m][n].getQuadrant() == mQuadrant) {
+									if(mSudokuBoard[m][n].getAvailableValueCount() == 1){
+										//System.out.println("Quadrant has a singly available value, removing it from cell's list of available Values");
+										mSudokuBoard[i][j].setUnavailableValue(mSudokuBoard[m][n].getAvailableValue()-1);
+									}
+								}	
 							}
 						}
 					}

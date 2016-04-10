@@ -146,6 +146,25 @@ public class SudokuCell {
 	}
 	
 	/**
+	 * Returns integer value of cell's only available value
+	 * precondition: Cell has only 1 available value
+	 * @return The integer value of cell's available value. Returns 0 if no available values exist.
+	 */
+	public int getAvailableValue(){
+		int i = 0;
+		System.out.println("IN INT getAvailableValue");
+		for(i = 0; i < availableValues.length; i++){
+			if(availableValues[i] == 1){
+				i = i + 1;
+				//System.out.println("i = " + i + " and function returns: " + i);
+				return i;
+				//return i; 
+			}
+		}
+		return 0;
+	}
+	
+	/**
 	 * Mark the given index as an available value
 	 * @param i
 	 */
